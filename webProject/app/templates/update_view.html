@@ -1,0 +1,8 @@
+<div class="main">
+    <h3><a href="/">Voltar</a></h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Atualizar">
+    </form>
+</div>

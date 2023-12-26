@@ -1,0 +1,9 @@
+<div class="main">
+    <h3><a href="/">Voltar</a></h3>
+    <form method="POST">
+        {% csrf_token %}
+        Você deseja excluir este item?
+        <input type="submit" value="Sim">
+        <a href="/">Cancelar</a>
+    </form>
+</div>
