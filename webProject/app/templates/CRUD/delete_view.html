@@ -1,4 +1,7 @@
-<div class="main">
+{% extends 'base.html' %}
+{% block title %} <title>Deletar registro</title> {% endblock %}
+{% block content%}
+<div class="container">
     <h3><a href="/">Voltar</a></h3>
     <form method="POST">
         {% csrf_token %}
@@ -7,3 +10,4 @@
         <a href="/">Cancelar</a>
     </form>
 </div>
+{% endblock %}

@@ -1,9 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect
+from django.core.paginator import Paginator
 from .models import GeekModel
 from .forms import GeeksForm
 
 
-# Create your views here.
 
 def create_view(request):
     context = {}
@@ -14,20 +14,29 @@ def create_view(request):
         return HttpResponseRedirect('/')
     
     context['form'] = form
-    return render(request, template_name='create_view.html', context=context)
+    return render(request, template_name='CRUD/create_view.html', context=context)
 
 
 def list_view(request):
-    context = {}
-    context['dataset'] = GeekModel.objects.all()
-    return render(request, template_name='list_view.html', context=context)
+    
+    dados = GeekModel.objects.all()
+    
+    paginator = Paginator(GeekModel.objects.all(), 2)
+    page = request.GET.get('page')
+    pages = paginator.get_page(page)
+
+    context = {
+        'dados': dados,
+        'pages': pages,
+    }
+    return render(request, template_name='CRUD/list_view.html', context=context)
 
 
-# pass id attribute from urls
 def detail_view(request, id): 
     context ={}
     context["data"] = GeekModel.objects.get(id = id)
-    return render(request, "detail_view.html", context)
+    return render(request, template_name="CRUD/detail_view.html", context=context)
+
 
 def update_view(request, id):
     context = {}
@@ -40,7 +49,7 @@ def update_view(request, id):
         return HttpResponseRedirect('/'+id)
     
     context['form'] = form
-    return render(request, template_name='update_view.html', context=context)
+    return render(request, template_name='CRUD/update_view.html', context=context)
 
 
 def delete_view(request, id):
@@ -50,4 +59,4 @@ def delete_view(request, id):
     if request.method == "POST":
         obj.delete()
         return HttpResponseRedirect("/")
-    return render(request, template_name='delete_view.html', context=context)
+    return render(request, template_name='CRUD/delete_view.html', context=context)

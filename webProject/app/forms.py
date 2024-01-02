@@ -9,3 +9,4 @@ class GeeksForm(forms.ModelForm):
             'title',
             'description'
         ]
+
